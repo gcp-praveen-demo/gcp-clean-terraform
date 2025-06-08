@@ -18,14 +18,14 @@ pipeline {
                 sh 'apt-get update'
                 sh 'apt-get install -y wget gnupg apt-transport-https ca-certificates'
 
-                # Install Docker
+                // Install Docker
                 sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg'
                 sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null'
                 sh 'apt-get update'
                 sh 'apt-get install -y docker-ce docker-ce-cli containerd.io'
                 sh 'docker --version'
 
-                # Install Terraform
+                // Install Terraform
                 sh 'wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg'
                 sh 'echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list'
                 sh 'apt-get update'
