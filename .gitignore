@@ -1,0 +1,15 @@
+# Ignore Terraform state files
+*.tfstate
+*.tfstate.backup
+.terraform/
+crash.log
+
+# Sensitive files
+*.pem
+*.key
+*.json
+
+# Ignore system files
+*.log
+.DS_Store
+Thumbs.db
