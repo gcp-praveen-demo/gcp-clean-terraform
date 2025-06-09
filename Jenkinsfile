@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GOOGLE_APPLICATION_CREDENTIALS = "/root/gcp-key.json"
+        GOOGLE_APPLICATION_CREDENTIALS = "/var/jenkins_home/gcp-key.json"
     }
 
     stages {
