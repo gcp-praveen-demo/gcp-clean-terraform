@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-environment {
-  GOOGLE_APPLICATION_CREDENTIALS = "/root/gcp-key.json"
-}
+    environment {
+        GOOGLE_APPLICATION_CREDENTIALS = "/root/gcp-key.json"
+    }
 
     stages {
         stage('Clone Repo') {
@@ -14,19 +14,25 @@ environment {
 
         stage('Terraform Init') {
             steps {
-                sh 'terraform init'
+                dir('gcp-clean-terraform') {
+                    sh 'terraform init -input=false'
+                }
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                sh 'terraform plan'
+                dir('gcp-clean-terraform') {
+                    sh 'terraform plan -input=false'
+                }
             }
         }
 
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply -auto-approve'
+                dir('gcp-clean-terraform') {
+                    sh 'terraform apply -auto-approve -input=false'
+                }
             }
         }
     }
