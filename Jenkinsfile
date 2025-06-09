@@ -8,25 +8,30 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git branch: 'main', url: 'https://github.com/gcp-praveen-demo/gcp-clean-terraform.git'
+                git branch: 'main',
+                    url: 'https://github.com/gcp-praveen-demo/gcp-clean-terraform.git'
             }
         }
 
         stage('Terraform Init') {
             steps {
-                sh 'terraform init'
+                dir('gcp-clean-terraform') {
+                    sh 'terraform init -input=false'
+                }
             }
         }
-
         stage('Terraform Plan') {
             steps {
-                sh 'terraform plan'
+                dir('gcp-clean-terraform') {
+                    sh 'terraform plan -input=false'
+                }
             }
         }
-
         stage('Terraform Apply') {
             steps {
-                sh 'terraform apply -auto-approve'
+                dir('gcp-clean-terraform') {
+                    sh 'terraform apply -auto-approve -input=false'
+                }
             }
         }
     }
