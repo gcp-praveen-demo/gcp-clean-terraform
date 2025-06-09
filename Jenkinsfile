@@ -6,6 +6,12 @@ pipeline {
     }
 
     stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
         stage('Clone Repo') {
             steps {
                 git branch: 'main',
@@ -15,24 +21,26 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                dir('gcp-clean-terraform') {
-                    sh 'terraform init -input=false'
-                }
+                sh 'terraform init -input=false'
             }
         }
+
         stage('Terraform Plan') {
             steps {
-                dir('gcp-clean-terraform') {
-                    sh 'terraform plan -input=false'
-                }
+                sh 'terraform plan -input=false'
             }
         }
+
         stage('Terraform Apply') {
             steps {
-                dir('gcp-clean-terraform') {
-                    sh 'terraform apply -auto-approve -input=false'
-                }
+                sh 'terraform apply -auto-approve -input=false'
             }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }
